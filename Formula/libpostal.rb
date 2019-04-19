@@ -12,6 +12,11 @@ class Libpostal < Formula
     sha256 "c8a88eed70d8c09f68e1e69bcad35cb397e6ef11b3314e18a87b314c0a5b4e3a"
   end
 
+  bottle do
+    root_url "https://homebrew.bintray.com/bottles-libpostal"
+    sha256 "4232d4ced9a6650098e286b3b33031c715ab45b292b2d65c161f49ddda62c967" => :mojave
+  end
+
   depends_on "autoconf" => :build
   depends_on "automake" => :build
   depends_on "libtool" => :build
