@@ -29,7 +29,7 @@ class Libpostal < Formula
     system "make", "install"
     system "#{bin}/libpostal_data", "download", "all", "#{prefix}/data/libpostal"
   end
-  
+
   test do
     (testpath/"test.c").write <<~EOS
       #include <stdio.h>
@@ -47,7 +47,7 @@ class Libpostal < Formula
       }
     EOS
 
-    system ENV.cc, "test.c", "-I#{prefix}/include", "-L#{prefix}/lib", "-lpostal", "-o", "test"
+    system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lpostal", "-o", "test"
     system "./test"
   end
 end
