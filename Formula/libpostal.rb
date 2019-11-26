@@ -23,6 +23,25 @@ class Libpostal < Formula
   end
 
   test do
+    (testpath/"test.c").write <<~EOS
+      #include <stdio.h>
+      #include <stdlib.h>
+      #include <libpostal/libpostal.h>
+
+      int main(int argc, char **argv) {
+          if (!libpostal_setup() || !libpostal_setup_parser()) {
+              exit(EXIT_FAILURE);
+          }
+          libpostal_address_parser_options_t options = libpostal_get_address_parser_default_options();
+          libpostal_address_parser_response_t *parsed = libpostal_parse_address("781 Franklin Ave Crown Heights Brooklyn NYC NY 11216 USA", options);
+          libpostal_address_parser_response_destroy(parsed);
+          libpostal_teardown();
+          libpostal_teardown_parser();
+      }
+    EOS
+
+    system ENV.cc, "test.c", "-I#{include}", "-L#{lib}", "-lpostal", "-o", "test"
+    system "./test"
   end
 
 end
